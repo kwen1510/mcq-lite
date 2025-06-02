@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student</title>
+  
+  <link rel="manifest" href="/manifest.json" />
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('SW registered'))
+      .catch(err => console.error('SW reg error:', err));
+  }
+
+  // Also add a "beforeunload" warning
+  window.addEventListener('beforeunload', (evt) => {
+    evt.preventDefault();
+    evt.returnValue = 'Are you sure you want to leave or reload?';
+  });
+</script>
+
+
+  <!-- Bootstrap CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="student.js" defer></script>
+
+  <style>
+    .answer-button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body class="container my-4 text-center">
+  <h1>Student</h1>
+
+  <div id="join-section" class="card p-3 mx-auto" style="max-width:400px;">
+    <p>Enter your name & quiz code:</p>
+    <input id="nameInput" class="form-control mb-2" placeholder="Name" />
+    <input id="codeInput" class="form-control mb-2" placeholder="Quiz Code" />
+    <button id="joinBtn" class="btn btn-primary">Join Quiz</button>
+  </div>
+
+  <div id="quiz-area" class="d-none mt-4">
+    <h2>Question <span id="questionNumber"></span></h2>
+    <div id="answerOptions" class="mt-3"></div>
+    <p id="message" class="mt-3"></p>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+</body>
+</html>
